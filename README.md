@@ -1,1 +1,1 @@
-"# VebProg" 
+# VebProg labs i vezbi
