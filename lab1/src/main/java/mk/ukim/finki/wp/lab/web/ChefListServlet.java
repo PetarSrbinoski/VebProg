@@ -1,6 +1,5 @@
 package mk.ukim.finki.wp.lab.web;
 
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -33,4 +32,10 @@ public class ChefListServlet extends HttpServlet {
         springTemplateEngine.process("listChefs.html", context, resp.getWriter());
     }
 
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String chefId = req.getParameter("chefId");
+        System.out.println("/dish?chefId=" + chefId);
+        resp.sendRedirect("/dish?chefId=" + chefId);
+    }
 }

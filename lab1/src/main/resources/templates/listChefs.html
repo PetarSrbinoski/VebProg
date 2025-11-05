@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <meta charset="utf-8">
     <html xmlns:th="http://www.thymeleaf.org">
@@ -21,7 +21,7 @@
 </header>
 <main>
     <h2>Choose a chef:</h2>
-    <form th:action="@{/dish}" th:method="POST">
+    <form th:action="@{/listChefs}" th:method="POST">
         <!-- Display radio buttons for each chef,
              the value should be the chef id
              and the displayed text should be:

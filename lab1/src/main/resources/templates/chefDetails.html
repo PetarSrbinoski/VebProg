@@ -27,14 +27,13 @@
 <body>
 <!-- Dynamically display data -->
 <header>
-    <h1>Chef: Gordon Ramsay</h1>
+    <h1>Chef: <span th:text="${chefName}"></span></h1>
 </header>
 <section>
-    <h2>Bio: World-renowned chef with 16 Michelin stars</h2>
+    <h2>Bio: <span th:text="${chefBio}"></span></h2>
     <h2>Dishes prepared by this chef:</h2>
-    <ul>
-        <li>Beef Wellington (British, 45 min)</li>
-        <li>Sticky Toffee Pudding (British, 30 min)</li>
+    <ul th:each="dish : ${dishes}">
+        <li th:text="${dish.getName} +' (' + ${dish.getCuisine} +', '+ ${dish.getPreparationTime} + ' min)'"></li>
     </ul>
 </section>
 </body>
