@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Add Dish to Chef</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        table, td, th {
+            border: 1px solid black;
+            padding: 10px;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        section {
+            float: left;
+            margin: 0 1.5%;
+            width: 63%;
+        }
+        aside {
+            float: right;
+            margin: 0 1.5%;
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Select the Dish to add to the Chef</h1>
+</header>
+<section>
+    <h2>Select dish:</h2>
+    <form action="/chefDetails" method="POST">
+        <!-- Dynamically display radio buttons for each dish -->
+        <input type="radio" name="dishId" value="1"> Pasta Carbonara <br/>
+        <input type="radio" name="dishId" value="2"> Beef Wellington <br/>
+        <input type="radio" name="dishId" value="3"> Chicken Tikka Masala <br/>
+        <br/>
+        <input type="submit" value="Add dish">
+    </form>
+</section>
+<aside>
+    <table>
+        <tr>
+            <td><b>Chef ID</b></td>
+            <td><!-- Display selected chefId --></td>
+        </tr>
+        <tr>
+            <td><b>Chef Name</b></td>
+            <td><!-- Display chef name --></td>
+        </tr>
+    </table>
+</aside>
+</body>
+</html>
