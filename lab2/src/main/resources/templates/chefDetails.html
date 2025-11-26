@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Chef Details</title>
+    <style type="text/css">
+        body { width: 800px; margin: auto; font-family: Arial, sans-serif; }
+        h1 { color: #333; }
+        ul { list-style-type: none; padding: 0; }
+        li { padding: 5px; margin: 5px 0; background-color: #f5f5f5; border-radius: 3px; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Chef: <span th:text="${chefName}">Chef Name</span></h1>
+</header>
+
+<section>
+    <h2>Bio: <span th:text="${chefBio}">Chef Bio</span></h2>
+    <h2>Dishes prepared by this chef:</h2>
+
+    <ul>
+        <li th:each="dish : ${dishes}"
+            th:text="${dish.name} + ' (' + dish.cuisine + ', ' + dish.preparationTime + ' min)'">
+            Dish Name (Cuisine, Time)
+        </li>
+    </ul>
+</section>
+
+<a class="btn" th:href="@{/listChefs}">Back to Chef List</a>
+
+</body>
+</html>
