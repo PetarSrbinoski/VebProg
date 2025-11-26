@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Chefs CRUD</title>
 </head>
 <body>
-$END$
+
+<h2>Manage Chefs</h2>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Bio</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="chef : ${chefs}">
+        <td th:text="${chef.id}">1</td>
+        <td th:text="${chef.firstName}">Gordon</td>
+        <td th:text="${chef.lastName}">Ramsay</td>
+        <td th:text="${chef.bio}">Bio</td>
+        <td>
+            <a th:href="@{'/chefs/chef-form/' + ${chef.id}}">Edit</a>
+            <form th:action="@{'/chefs/delete/' + ${chef.id}}"
+                  method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br>
+
+<a th:href="@{/chefs/chef-form}">Add new chef</a>
+<br><br>
+
+<form th:action="@{/listChefs}" method="get">
+    <button type="submit">Back to Chef Selection</button>
+</form>
+
 </body>
 </html>

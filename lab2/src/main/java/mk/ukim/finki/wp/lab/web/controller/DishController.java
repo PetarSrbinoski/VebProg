@@ -18,7 +18,6 @@ public class DishController {
         this.chefService = chefService;
     }
 
-    // 4.1 Листање на јадења (CRUD)
     @GetMapping("/dishes")
     public String getDishesPage(@RequestParam(required = false) String error,
                                 Model model) {
@@ -30,7 +29,6 @@ public class DishController {
         return "listDishes";
     }
 
-    // 7.2 Форма за додавање
     @GetMapping("/dishes/dish-form")
     public String getAddDishPage(Model model) {
         model.addAttribute("dish", new Dish());
@@ -39,7 +37,6 @@ public class DishController {
         return "dish-form";
     }
 
-    // 7.1 Форма за едитирање
     @GetMapping("/dishes/dish-form/{id}")
     public String getEditDishForm(@PathVariable Long id, Model model) {
         try {
@@ -53,37 +50,32 @@ public class DishController {
         }
     }
 
-    // 4.2 Додавање ново јадење
     @PostMapping("/dishes/add")
-    public String saveDish(@RequestParam String dishId,
-                           @RequestParam String name,
+    public String saveDish(@RequestParam String name,
                            @RequestParam String cuisine,
                            @RequestParam int preparationTime) {
-        dishService.create(dishId, name, cuisine, preparationTime);
+        dishService.create(name, cuisine, preparationTime);
         return "redirect:/dishes";
     }
 
-    // 4.3 Ажурирање јадење
+
+
     @PostMapping("/dishes/edit/{id}")
     public String editDish(@PathVariable Long id,
-                           @RequestParam String dishId,
                            @RequestParam String name,
                            @RequestParam String cuisine,
                            @RequestParam int preparationTime) {
-        dishService.update(id, dishId, name, cuisine, preparationTime);
+        dishService.update(id, name, cuisine, preparationTime);
         return "redirect:/dishes";
     }
 
-    // 4.4 Бришење јадење
     @PostMapping("/dishes/delete/{id}")
     public String deleteDish(@PathVariable Long id) {
         dishService.delete(id);
         return "redirect:/dishes";
     }
 
-    // 8. Интеграција со Chef – избор јадење за готвач (бивши /dish servlet)
 
-    // Прикажи листа на јадења за даден chef
     @GetMapping("/dish")
     public String getDishSelectionPage(@RequestParam Long chefId, Model model) {
         var chef = chefService.findById(chefId)
@@ -96,10 +88,9 @@ public class DishController {
         return "dishesList"; // dishesList.html
     }
 
-    // Додај избрано јадење на готвач и оди на chefDetails
     @PostMapping("/dish")
     public String addDishToChef(@RequestParam Long chefId,
-                                @RequestParam String dishId) {
+                                @RequestParam Long dishId) {
         chefService.addDishToChef(chefId, dishId);
         return "redirect:/chefDetails?chefId=" + chefId;
     }

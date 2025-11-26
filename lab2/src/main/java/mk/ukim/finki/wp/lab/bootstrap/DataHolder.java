@@ -17,10 +17,13 @@ public class DataHolder {
         chefs = new ArrayList<>(5);
         dishes = new ArrayList<>(5);
 
-        chefs.add(new Chef((long)1, "Gordon", "Ramsay", "Chef 1", new ArrayList<>()));
-        chefs.add(new Chef((long)2, "Jamie", "Oliver", "Chef 2", new ArrayList<>()));
+        chefs.add(new Chef("Gordon", "Ramsay", "Chef 1"));
+        chefs.add(new Chef("Jamie", "Oliver", "Chef 2"));
+        chefs.add(new Chef("Petar", "Srbinoski", "Chef 3"));
 
-        dishes.add(new Dish("1", "Carbonara", "Italian", 20));
-        dishes.add(new Dish("2", "Ajvar", "Macedonian", 30));
+        dishes.add(new Dish( "Carbonara", "Italian", 20));
+        dishes.add(new Dish( "Ajvar", "Macedonian", 30));
+        dishes.add(new Dish( "Jajca", "Macedonian", 15));
+        dishes.add(new Dish( "Torta", "Spanish", 90));
     }
 }

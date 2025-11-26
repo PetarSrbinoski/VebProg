@@ -15,7 +15,6 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>DishId</th>
         <th>Name</th>
         <th>Cuisine</th>
         <th>Preparation time</th>
@@ -25,7 +24,6 @@
     <tbody>
     <tr th:each="dish : ${dishes}">
         <td th:text="${dish.id}">1</td>
-        <td th:text="${dish.dishId}">D1</td>
         <td th:text="${dish.name}">Name</td>
         <td th:text="${dish.cuisine}">Cuisine</td>
         <td th:text="${dish.preparationTime}">15</td>
@@ -43,6 +41,10 @@
 <br/>
 
 <a th:href="@{/dishes/dish-form}">Add new dish</a>
+
+<form th:action="@{/listChefs}" method="get">
+    <button type="submit">Back to Chef Selection</button>
+</form>
 
 </body>
 </html>

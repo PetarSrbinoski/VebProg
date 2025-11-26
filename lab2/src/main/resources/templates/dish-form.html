@@ -8,10 +8,6 @@
 <h2 th:text="${formTitle}">Dish form</h2>
 
 <form th:action="@{${action}}" method="post">
-    <div>
-        <label>Dish Id:</label>
-        <input type="text" name="dishId" th:value="${dish.dishId}" required/>
-    </div>
 
     <div>
         <label>Name:</label>

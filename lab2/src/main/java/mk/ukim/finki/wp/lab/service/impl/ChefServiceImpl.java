@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Service
 public class ChefServiceImpl implements ChefService {
+
     private final ChefRepository chefRepo;
     private final DishRepository dishRepo;
 
@@ -19,7 +20,6 @@ public class ChefServiceImpl implements ChefService {
         this.chefRepo = chefRepo;
         this.dishRepo = dishRepo;
     }
-
 
     @Override
     public List<Chef> listChefs() {
@@ -32,16 +32,40 @@ public class ChefServiceImpl implements ChefService {
     }
 
     @Override
-    public Chef addDishToChef(Long chefId, String dishId) {
-        Optional<Chef> chefO = chefRepo.findById(chefId);
-        Optional<Dish> dishO = Optional.ofNullable(dishRepo.findByDishId(dishId));
-
-        if (chefO.isEmpty() || dishO.isEmpty()) throw new IllegalArgumentException();
-
-        Chef chef = chefO.get();
-        Dish dish = dishO.get();
-
-        chef.getDishes().add(dish);
+    public Chef create(String firstName, String lastName, String bio) {
+        Chef chef = new Chef(firstName, lastName, bio);
         return chefRepo.save(chef);
     }
+
+    @Override
+    public Chef update(Long id, String firstName, String lastName, String bio) {
+        Chef chef = chefRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Chef not found"));
+
+        chef.setFirstName(firstName);
+        chef.setLastName(lastName);
+        chef.setBio(bio);
+
+        return chefRepo.save(chef);
+    }
+
+    @Override
+    public void delete(Long id) {
+        chefRepo.deleteById(id);
+    }
+
+    @Override
+    public Chef addDishToChef(Long chefId, Long dishId) {
+        Chef chef = chefRepo.findById(chefId)
+                .orElseThrow(() -> new IllegalArgumentException("Chef not found"));
+
+        Dish dish = dishRepo.findById(dishId)
+                .orElseThrow(() -> new IllegalArgumentException("Dish not found"));
+
+        chef.getDishes().add(dish);
+        chefRepo.save(chef);
+
+        return chef;
+    }
+
 }

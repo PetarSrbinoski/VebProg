@@ -17,23 +17,15 @@ public class InMemoryDishRepository implements DishRepository {
     }
 
     @Override
-    public Dish findByDishId(String dishId) {
-        return DataHolder.dishes.stream()
-                .filter(d -> d.getDishId().equals(dishId))
-                .findFirst()
-                .orElse(null);
-    }
-
-    @Override
     public Optional<Dish> findById(Long id) {
         return DataHolder.dishes.stream()
                 .filter(d -> d.getId().equals(id))
                 .findFirst();
     }
 
+
     @Override
     public Dish save(Dish dish) {
-        // if exists with same id -> replace
         if (dish.getId() != null) {
             DataHolder.dishes.removeIf(d -> d.getId().equals(dish.getId()));
         }

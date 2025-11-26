@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${formTitle}">Chef form</title>
+</head>
+<body>
+<h2 th:text="${formTitle}">Chef form</h2>
+
+<form th:action="@{${action}}" method="post">
+    <div>
+        <label>First name:</label>
+        <input type="text" name="firstName" th:value="${chef.firstName}" required/>
+    </div>
+
+    <div>
+        <label>Last name:</label>
+        <input type="text" name="lastName" th:value="${chef.lastName}" required/>
+    </div>
+
+    <div>
+        <label>Bio:</label>
+        <input type="text" name="bio" th:value="${chef.bio}" required/>
+    </div>
+
+    <div>
+        <button type="submit">Save</button>
+        <a th:href="@{/chefs}">Cancel</a>
+    </div>
+</form>
+
+</body>
+</html>

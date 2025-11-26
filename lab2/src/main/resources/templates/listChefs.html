@@ -2,37 +2,66 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>Restaurant Chefs - Welcome to Our Restaurant</title>
+    <title>Select the Chef</title>
     <style type="text/css">
-        body { width: 800px; margin: auto; font-family: Arial, sans-serif; }
-        h1 { color: #333; }
+        body {
+            width: 800px;
+            margin: auto;
+            font-family: Arial, sans-serif;
+        }
+
+        section {
+            float: left;
+            margin: 0 1.5%;
+            width: 63%;
+        }
+        aside {
+            float: right;
+            margin: 0 1.5%;
+            width: 30%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, td, th {
+            border: 1px solid black;
+            padding: 5px;
+        }
+        th {
+            background-color: #f0f0f0;
+        }
     </style>
 </head>
 <body>
+
 <header>
-    <h1>Welcome to Our Restaurant</h1>
+    <h1>Select the Chef</h1>
 </header>
-<main>
-    <h2>Choose a chef:</h2>
+
+<section>
+    <h2>Select chef:</h2>
+
     <form th:action="@{/listChefs}" th:method="POST">
         <th:block th:each="chef : ${chefs}">
             <label>
                 <input type="radio" name="chefId" th:value="${chef.id}">
-                Name:
-                <span th:text="${chef.firstName + ' ' + chef.lastName}">First Last</span>,
-                Bio:
-                <span th:text="${chef.bio}">Bio</span>
-                <br/>
+                <span th:text="${chef.firstName + ' ' + chef.lastName}">Chef Name</span>
+                (<span th:text="${chef.bio}">Bio</span>)
             </label>
+            <br/>
         </th:block>
-        <input type="submit" value="Submit">
+
+        <br/>
+        <button type="submit">Select chef</button>
     </form>
 
     <br/>
 
-    <form th:action="@{/dishes/dish-form}" method="get">
-        <button type="submit">Add new dish</button>
-    </form>
-</main>
+<!--    <form th:action="@{/chefs}" method="get">-->
+<!--        <button type="submit">Add new chef</button>-->
+<!--    </form>-->
+</section>
+
 </body>
 </html>

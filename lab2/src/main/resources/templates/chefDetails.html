@@ -23,10 +23,11 @@
 
     <ul>
         <li th:each="dish : ${dishes}"
-            th:text="${dish.name} + ' (' + dish.cuisine + ', ' + dish.preparationTime + ' min)'">
-            Dish Name (Cuisine, Time)
+            th:text="${dish.name + ' (' + dish.cuisine + ', ' + dish.preparationTime + ' min)' }">
+            Dish placeholder
         </li>
     </ul>
+
 </section>
 
 <a class="btn" th:href="@{/listChefs}">Back to Chef List</a>

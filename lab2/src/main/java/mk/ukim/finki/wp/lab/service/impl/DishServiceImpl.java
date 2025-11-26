@@ -22,30 +22,24 @@ public class DishServiceImpl implements DishService {
     }
 
     @Override
-    public Dish findByDishId(String dishId) {
-        return dishRepository.findByDishId(dishId);
-    }
-
-    @Override
     public Dish findById(Long id) {
         return dishRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Dish not found"));
     }
 
     @Override
-    public Dish create(String dishId, String name, String cuisine, int preparationTime) {
-        Dish dish = new Dish(dishId, name, cuisine, preparationTime); // id auto-gen
+    public Dish create(String name, String cuisine, int preparationTime) {
+        Dish dish = new Dish(name, cuisine, preparationTime);
         return dishRepository.save(dish);
     }
 
     @Override
-    public Dish update(Long id, String dishId, String name, String cuisine, int preparationTime) {
-        Dish dish = this.findById(id);    // get existing
-        dish.setDishId(dishId);
+    public Dish update(Long id, String name, String cuisine, int preparationTime) {
+        Dish dish = this.findById(id);
         dish.setName(name);
         dish.setCuisine(cuisine);
         dish.setPreparationTime(preparationTime);
-        return dishRepository.save(dish); // same id preserved
+        return dishRepository.save(dish);
     }
 
     @Override
