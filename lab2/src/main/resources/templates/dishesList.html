@@ -3,74 +3,44 @@
 <head>
     <meta charset="utf-8">
     <title>Add Dish to Chef</title>
-    <style type="text/css">
-        body {
-            width: 800px;
-            margin: auto;
-            font-family: Arial, sans-serif;
-        }
-
-        section {
-            float: left;
-            margin: 0 1.5%;
-            width: 63%;
-        }
-        aside {
-            float: right;
-            margin: 0 1.5%;
-            width: 30%;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, td, th {
-            border: 1px solid black;
-            padding: 5px;
-        }
-        th {
-            background-color: #f0f0f0;
-        }
-    </style>
 </head>
 <body>
 <header>
-    <h1>Select the Dish to add to the Chef</h1>
+    <h1>Select the Dish to add to the Chef: <span th:text="${chefName}">Chef Name</span></h1>
 </header>
 
 <section>
-    <h2>Select dish:</h2>
+    <h2>Select existing dish:</h2>
     <form th:action="@{/dish}" th:method="POST">
         <th:block th:each="dish : ${dishes}">
             <label>
                 <input type="radio" name="dishId" th:value="${dish.id}">
-                <span th:text="${dish.name}">Dish name</span>
-                <input type="hidden" th:name="chefId" th:value="${chefId}">
+                <span th:text="${dish.name + ' (' + dish.cuisine + ')'}">Dish name</span>
             </label>
             <br/>
         </th:block>
         <br/>
+        <input type="hidden" th:name="chefId" th:value="${chefId}">
         <input type="submit" value="Add dish">
     </form>
 
     <br/>
 
     <form th:action="@{/dishes/dish-form}" method="get">
+        <input type="hidden" name="chefId" th:value="${chefId}">
         <button type="submit">Make new dish</button>
     </form>
+
+    <br/>
+
+    <a th:href="@{/dishes}">
+        <button type="button">View All Dishes (CRUD)</button>
+    </a>
+
 </section>
 
-<aside>
-    <table>
-        <tr>
-            <th>Chef ID</th>
-            <td th:text="${chefId}">1</td>
-        </tr>
-        <tr>
-            <th>Chef Name</th>
-            <td th:text="${chefName}">Chef Name</td>
-        </tr>
-    </table>
-</aside>
+<br/>
+<a class="btn" th:href="@{/listChefs}">Back to Chef Selection</a>
+
 </body>
 </html>

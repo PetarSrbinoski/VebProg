@@ -5,6 +5,7 @@
     <title th:text="${formTitle}">Dish form</title>
 </head>
 <body>
+
 <h2 th:text="${formTitle}">Dish form</h2>
 
 <form th:action="@{${action}}" method="post">
@@ -21,14 +22,30 @@
 
     <div>
         <label>Preparation time (min):</label>
-        <input type="number" name="preparationTime"
-               th:value="${dish.preparationTime}" min="1" required/>
+        <input type="number"
+               name="preparationTime"
+               min="1"
+               required
+               th:value="${dish.preparationTime}"/>
     </div>
 
     <div>
-        <button type="submit">Save</button>
-        <a th:href="@{/dishes}">Cancel</a>
+        <label>Chef:</label>
+        <select name="chefId" required>
+            <option value="" disabled selected>-- select chef --</option>
+            <option th:each="chef : ${chefs}"
+                    th:value="${chef.id}"
+                    th:text="${chef.firstName + ' ' + chef.lastName}"
+                    th:selected="${dish.chef != null} ? ${chef.id} == ${dish.chef.id} : false">
+            </option>
+        </select>
     </div>
+
+    <br/>
+
+    <button type="submit">Save</button>
+    <a th:href="@{/dishes}">Cancel</a>
+
 </form>
 
 </body>

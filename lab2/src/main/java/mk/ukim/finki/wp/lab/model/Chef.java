@@ -1,30 +1,37 @@
 package mk.ukim.finki.wp.lab.model;
 
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Entity
+@ToString(exclude = "dishes")
 public class Chef {
 
-    private static long counter = 0L; // авто-counter
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String firstName;
+
     private String lastName;
+
+    @Column(length = 2000)
     private String bio;
-    private List<Dish> dishes;
+
+    @OneToMany(mappedBy = "chef", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Dish> dishes = new ArrayList<>();
 
     public Chef() {
-        this.dishes = new ArrayList<>();
     }
 
     public Chef(String firstName, String lastName, String bio) {
-        this.id = ++counter;          // авто-генерирање ID
         this.firstName = firstName;
         this.lastName = lastName;
         this.bio = bio;
-        this.dishes = new ArrayList<>();
     }
 }
