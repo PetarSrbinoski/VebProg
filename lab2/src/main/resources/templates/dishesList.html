@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <title>Add Dish to Chef</title>
@@ -25,22 +25,21 @@
     </form>
 
     <br/>
-
-    <form th:action="@{/dishes/dish-form}" method="get">
-        <input type="hidden" name="chefId" th:value="${chefId}">
-        <button type="submit">Make new dish</button>
-    </form>
-
-    <br/>
-
-    <a th:href="@{/dishes}">
-        <button type="button">View All Dishes (CRUD)</button>
-    </a>
+    <div sec:authorize="hasRole('ADMIN')">
+        <form th:action="@{/dishes/dish-form}" method="get">
+            <input type="hidden" name="chefId" th:value="${chefId}">
+            <button type="submit">Make new dish</button>
+        </form>
+        <br/>
+        <a th:href="@{/dishes}">
+            <button type="button">View All Dishes (CRUD)</button>
+        </a>
+    </div>
 
 </section>
 
 <br/>
-<a class="btn" th:href="@{/listChefs}">Back to Chef Selection</a>
+<a th:href="@{/listChefs}">Back to Chef Selection</a>
 
 </body>
 </html>

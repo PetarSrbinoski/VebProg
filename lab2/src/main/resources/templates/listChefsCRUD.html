@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Chefs CRUD</title>
 </head>
 <body>
-
 <h2>Manage Chefs</h2>
 
 <table border="1">
@@ -26,8 +25,7 @@
         <td th:text="${chef.bio}">Bio</td>
         <td>
             <a th:href="@{'/chefs/chef-form/' + ${chef.id}}">Edit</a>
-            <form th:action="@{'/chefs/delete/' + ${chef.id}}"
-                  method="post" style="display:inline;">
+            <form th:action="@{'/chefs/delete/' + ${chef.id}}" method="post" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>
@@ -36,13 +34,9 @@
 </table>
 
 <br>
-
 <a th:href="@{/chefs/chef-form}">Add new chef</a>
 <br><br>
-
-<form th:action="@{/listChefs}" method="get">
-    <button type="submit">Back to Chef Selection</button>
-</form>
+<a th:href="@{/listChefs}">Back to Chef Selection</a>
 
 </body>
 </html>

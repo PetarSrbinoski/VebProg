@@ -1,36 +1,14 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <title>Select the Chef</title>
     <style type="text/css">
-        body {
-            width: 800px;
-            margin: auto;
-            font-family: Arial, sans-serif;
-        }
-
-        section {
-            float: left;
-            margin: 0 1.5%;
-            width: 63%;
-        }
-        aside {
-            float: right;
-            margin: 0 1.5%;
-            width: 30%;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, td, th {
-            border: 1px solid black;
-            padding: 5px;
-        }
-        th {
-            background-color: #f0f0f0;
-        }
+        body { width: 800px; margin: auto; font-family: Arial, sans-serif; }
+        section { float: left; margin: 0 1.5%; width: 63%; }
+        table { width: 100%; border-collapse: collapse; }
+        table, td, th { border: 1px solid black; padding: 5px; }
+        th { background-color: #f0f0f0; }
     </style>
 </head>
 <body>
@@ -41,7 +19,6 @@
 
 <section>
     <h2>Select chef:</h2>
-
     <form th:action="@{/listChefs}" th:method="POST">
         <th:block th:each="chef : ${chefs}">
             <label>
@@ -51,15 +28,13 @@
             </label>
             <br/>
         </th:block>
-
         <br/>
         <button type="submit">Select chef</button>
     </form>
 
     <br/>
-
-    <form th:action="@{/chefs}" method="get">
-        <button type="submit">Add new chef</button>
+    <form th:action="@{/chefs}" method="get" sec:authorize="hasRole('ADMIN')">
+        <button type="submit">Add new chef (CRUD)</button>
     </form>
 </section>
 

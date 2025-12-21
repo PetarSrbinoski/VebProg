@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Dishes</title>
@@ -7,28 +7,34 @@
 <body>
 <h2>All dishes</h2>
 
+<div>
+    <div sec:authorize="isAnonymous()">
+        <a th:href="@{/login}">Login</a>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        Logged in as: <span sec:authentication="name"></span> |
+        <form th:action="@{/logout}" method="post" style="display:inline;">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+</div>
+
 <div th:if="${hasError}">
     <p th:text="${error}" style="color:red;"></p>
 </div>
 
 <form th:action="@{/dishes}" th:method="GET">
     <div>
-
-        <div>
-            <label for="chefSelect">Chef</label>
-            <select name="chefId" id="chefSelect">
-                <option value="">All chefs</option>
-                <option th:each="chef : ${chefs}"
-                        th:value="${chef.getId()}"
-                        th:text="${chef.getFirstName()}"
-                        th:selected="${chefId != null && chefId == chef.getId()}">
-                </option>
-            </select>
-        </div>
-
-        <div>
-            <button class="btn btn-primary w-100" type="submit">Filter</button>
-        </div>
+        <label for="chefSelect">Filter by Chef:</label>
+        <select name="chefId" id="chefSelect">
+            <option value="">All chefs</option>
+            <option th:each="chef : ${chefs}"
+                    th:value="${chef.getId()}"
+                    th:text="${chef.getFirstName() + ' ' + chef.getLastName()}"
+                    th:selected="${chefId != null && chefId == chef.getId()}">
+            </option>
+        </select>
+        <button type="submit">Filter</button>
     </div>
 </form>
 
@@ -42,7 +48,7 @@
         <th>Cuisine</th>
         <th>Preparation time</th>
         <th>Chef</th>
-        <th>Actions</th>
+        <th sec:authorize="hasRole('ADMIN')">Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -51,13 +57,10 @@
         <td th:text="${dish.name}">Name</td>
         <td th:text="${dish.cuisine}">Cuisine</td>
         <td th:text="${dish.preparationTime}">15</td>
-        <td th:text="${dish.chef != null ? dish.chef.firstName + ' ' + dish.chef.lastName : '—'}">
-            Chef name
-        </td>
-        <td>
+        <td th:text="${dish.chef != null ? dish.chef.firstName + ' ' + dish.chef.lastName : '—'}">Chef name</td>
+        <td sec:authorize="hasRole('ADMIN')">
             <a th:href="@{/dishes/dish-form(id=${dish.id})}">Edit</a>
-            <form th:action="@{'/dishes/delete/' + ${dish.id}}"
-                  method="post" style="display:inline;">
+            <form th:action="@{'/dishes/delete/' + ${dish.id}}" method="post" style="display:inline;">
                 <button type="submit">Delete</button>
             </form>
         </td>
@@ -67,8 +70,11 @@
 
 <br/>
 
-<a th:href="@{/dishes/dish-form}">Add new dish</a>
+<div sec:authorize="hasRole('ADMIN')">
+    <a th:href="@{/dishes/dish-form}">Add new dish</a>
+</div>
 
+<br>
 <form th:action="@{/listChefs}" method="get">
     <button type="submit">Back to Chef Selection</button>
 </form>
