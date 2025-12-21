@@ -33,7 +33,7 @@ public class WebSecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .defaultSuccessUrl("/dishes", true)
+                        .defaultSuccessUrl("/listChefs", true)
                         .permitAll()
                 )
                 .logout(logout -> logout
